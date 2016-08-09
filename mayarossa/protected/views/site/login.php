@@ -9,6 +9,12 @@ $this->breadcrumbs=array(
 );
 ?>
 
+<?php if(Yii::app()->user->hasFlash('needLogin')): ?>
+	<div class="flash-error">
+		<?php echo Yii::app()->user->getFlash('needLogin'); ?>
+	</div>
+<?php endif; ?>
+
 <h1>Login</h1>
 
 <p>Please fill out the following form with your login credentials:</p>

@@ -35,6 +35,11 @@ class SiteController extends Controller
 
 	public function actionAddPost()
 	{
+		if (Yii::app()->user->isGuest){
+			Yii::app()->user->setFlash('needLogin','Для этой операции требуется регистрация в системе');
+			$this->redirect('site/login');
+		}
+		
 		$model=new Posts;
 
 		// uncomment the following code to enable ajax-based validation
@@ -48,11 +53,13 @@ class SiteController extends Controller
 
 		if(isset($_POST['Posts']))
 		{
-			$model->attributes=$_POST['Posts'];
+			$model->attributes = $_POST['Posts'];
 
 			if($model->validate())
 			{
 				$model->save();
+				Yii::app()->user->setFlash('addPost','Ваш пост успешно добавлен');
+				$this->redirect('addPost');
 			}
 		}
 		$this->render('addPost',array('model'=>$model));

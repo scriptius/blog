@@ -3,6 +3,11 @@
 /* @var $model Posts */
 /* @var $form CActiveForm */
 ?>
+	<?php if(Yii::app()->user->hasFlash('addPost')): ?>
+		<div class="flash-success">
+	<?php echo Yii::app()->user->getFlash('addPost'); ?>
+		</div>
+	<?php endif; ?>
 
 <div class="form">
 
@@ -43,38 +48,23 @@
 		<?php echo $form->error($model,'status'); ?>
 	</div>
 
+	<div class="row">
+		<?php echo $form->hiddenField($model,'userId', ['value' => 1]); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->hiddenField($model,'updated_at', ['value' => time()]); ?>
+	</div>
+
+	<div class="row">
+		<?php echo $form->hiddenField($model,'created_at', ['value' => time()]); ?>
+	</div>
+
 	<div class="row buttons">
 		<?php echo CHtml::submitButton('Отправить'); ?>
 	</div>
 
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'userId'); ?>
-		<?php echo $form->textField($model,'userId'); ?>
-		<?php echo $form->error($model,'userId'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'updated_at'); ?>
-		<?php echo $form->textField($model,'updated_at'); ?>
-		<?php echo $form->error($model,'updated_at'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'created_at'); ?>
-		<?php echo $form->textField($model,'created_at'); ?>
-		<?php echo $form->error($model,'created_at'); ?>
-	</div>
-
-	<div class="row">
-		<?php echo $form->labelEx($model,'raiting'); ?>
-		<?php echo $form->textField($model,'raiting'); ?>
-		<?php echo $form->error($model,'raiting'); ?>
-	</div>
-
-
 	<?php $this->endWidget(); ?>
 
-
-
-</div><!-- form -->
+</div>
+<!-- form -->
