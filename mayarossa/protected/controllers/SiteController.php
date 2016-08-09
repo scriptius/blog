@@ -29,7 +29,34 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
+
 		$this->render('index');
+	}
+
+	public function actionAddPost()
+	{
+		$model=new Posts;
+
+		// uncomment the following code to enable ajax-based validation
+		/*
+        if(isset($_POST['ajax']) && $_POST['ajax']==='posts-index-form')
+        {
+            echo CActiveForm::validate($model);
+            Yii::app()->end();
+        }
+        */
+
+		if(isset($_POST['Posts']))
+		{
+			$model->attributes=$_POST['Posts'];
+
+			if($model->validate())
+			{
+				$model->save();
+			}
+		}
+		$this->render('addPost',array('model'=>$model));
+
 	}
 
 	/**
