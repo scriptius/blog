@@ -26,19 +26,19 @@
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'title'); ?>
-		<?php echo $form->textField($model,'title'); ?>
+		<?php echo $form->textField($model,'title', ['size' => 74]); ?>
 		<?php echo $form->error($model,'title'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'image'); ?>
-		<?php echo $form->textField($model,'image'); ?>
+		<?php echo $form->textField($model,'image', ['size' => 74]); ?>
 		<?php echo $form->error($model,'image'); ?>
 	</div>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'content'); ?>
-		<?php echo $form->textArea($model,'content'); ?>
+		<?php echo $form->textArea($model,'content', ['cols' => 75, 'rows' => 15]); ?>
 		<?php echo $form->error($model,'content'); ?>
 	</div>
 
