@@ -4,17 +4,18 @@
 $this->pageTitle=Yii::app()->name;
 ?>
 
-<h1>Добро пожаловать на  <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
+<h1 xmlns="http://www.w3.org/1999/html">Добро пожаловать на  <i><?php echo CHtml::encode(Yii::app()->name); ?></i></h1>
 
-<p>Congratulations! You have successfully created your Yii application.</p>
+<?php if (!empty($posts)): ?>
 
-<p>You may change the content of this page by modifying the following two files:</p>
-<ul>
-	<li>View file: <code><?php echo __FILE__; ?></code></li>
-	<li>Layout file: <code><?php echo $this->getLayoutFile('main'); ?></code></li>
-</ul>
+	<?php foreach ($posts as $post):?>
+		<div class="portlet-title">
+			<a href="article/<?= $post->id ?>"> <?= $post->title; ?> </a>
+		</div>
+		<div class="portlet-content">
+			<?= $post->content; ?>
+		</div>
+	<?php endforeach; ?>
 
-<p>For more details on how to further develop this application, please read
-the <a href="http://www.yiiframework.com/doc/">documentation</a>.
-Feel free to ask in the <a href="http://www.yiiframework.com/forum/">forum</a>,
-should you have any questions.</p>
+	<?php else: echo 'На текущий момент записей нет';	?>
+<?php endif; ?>
