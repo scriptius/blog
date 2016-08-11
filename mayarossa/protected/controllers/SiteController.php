@@ -35,9 +35,28 @@ class SiteController extends Controller
 
 	public function actionArticle(int $id)
 	{
+		if (isset($_POST['Comments'])){
+			$newComment = new Comments();
+			$newComment->attributes = $_POST['Comments'];
+			if($newComment->validate())
+			{
+				$newComment->save();
+				Yii::app()->user->setFlash('addComment','Ваш комментарий успешно добавлен');
+				$this->redirect(Yii::app()->user->returnUrl);
+				$this->render('article', ['post' => $post, 'comment' => $comment, 'userId' => Yii::app()->user->id]);
+			}
+		}
+
 		$post = Posts::model()->findByPk($id);
-		$comment = new Comments();
-		$this->render('article', ['post' => $post, 'comment' => $comment]);
+		$allComments = Comments::model()->findAll();
+
+		var_dump($allComments);
+
+		$this->render('article', ['post' => $post, 'allComments' => $allComments]);
+
+
+
+
 	}
 
 	public function actionAddPost()

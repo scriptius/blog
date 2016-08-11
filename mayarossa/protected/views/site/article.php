@@ -14,7 +14,7 @@ $this->pageTitle=Yii::app()->name;
 <div class="form">
 
     <?php $form=$this->beginWidget('CActiveForm', array(
-        'id'=>'comments-comments-form',
+        'id'=>'allCommentss-allCommentss-form',
         // Please note: When you enable ajax validation, make sure the corresponding 
         // controller action is handling ajax validation correctly. 
         // See class documentation of CActiveForm for details on this, 
@@ -22,37 +22,37 @@ $this->pageTitle=Yii::app()->name;
         'enableAjaxValidation'=>false,
     )); ?>
 
-    <?php echo $form->errorSummary($comment); ?>
+    <?php echo $form->errorSummary($allComments); ?>
 
     <div class="row">
-        <?php echo $form->hiddenField($comment,'userId'); ?>
+        <?php echo $form->hiddenField($allComments,'userId', ['value' => $userId]) ; ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($comment,'content'); ?>
-        <?php echo $form->textArea($comment,'content', ['cols' => 75, 'rows' => 5]); ?>
-        <?php echo $form->error($comment,'content'); ?>
+        <?php echo $form->labelEx($allComments,'content'); ?>
+        <?php echo $form->textArea($allComments,'content', ['cols' => 75, 'rows' => 5]); ?>
+        <?php echo $form->error($allComments,'content'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->hiddenField($comment,'updated_at'); ?>
+        <?php echo $form->hiddenField($allComments,'updated_at', ['value' => time()]); ?>
 
     </div>
 
     <div class="row">
-        <?php echo $form->hiddenField($comment,'created_at'); ?>
+        <?php echo $form->hiddenField($allComments,'created_at', ['value' => time()]); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->hiddenField($comment,'raiting'); ?>
+        <?php echo $form->hiddenField($allComments,'raiting'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->hiddenField($comment,'parentPost'); ?>
+        <?php echo $form->hiddenField($allComments,'parentPost', ['value' => 1]); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->hiddenField($comment,'parentComment'); ?>
+        <?php echo $form->hiddenField($allComments,'parentallComments', ['value' => 1]); ?>
     </div>
 
 
@@ -61,6 +61,8 @@ $this->pageTitle=Yii::app()->name;
     </div>
 
     <?php $this->endWidget(); ?>
+
+
 
 </div><!-- form -->
 
