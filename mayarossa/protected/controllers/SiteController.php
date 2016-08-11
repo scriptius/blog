@@ -35,24 +35,22 @@ class SiteController extends Controller
 
 	public function actionArticle(int $id)
 	{
+		$comment = new Comments();
+
 		if (isset($_POST['Comments'])){
-			$newComment = new Comments();
-			$newComment->attributes = $_POST['Comments'];
-			if($newComment->validate())
-			{
-				$newComment->save();
+			$comment->attributes = $_POST['Comments'];
+			if($comment->validate()){
+				$comment->save();
 				Yii::app()->user->setFlash('addComment','Ваш комментарий успешно добавлен');
-				$this->redirect(Yii::app()->user->returnUrl);
-				$this->render('article', ['post' => $post, 'comment' => $comment, 'userId' => Yii::app()->user->id]);
+//				$this->redirect(Yii::app()->user->returnUrl);
+//				$this->render('article', ['post' => $post, 'comment' => $comment, 'userId' => Yii::app()->user->id]);
 			}
 		}
 
 		$post = Posts::model()->findByPk($id);
 		$allComments = Comments::model()->findAll();
 
-		var_dump($allComments);
-
-		$this->render('article', ['post' => $post, 'allComments' => $allComments]);
+		$this->render('article', ['post' => $post, 'comment' => $comment, 'userId' => Yii::app()->user->id, 'allComments' => $allComments]);
 
 
 
@@ -92,7 +90,7 @@ class SiteController extends Controller
 
 	}
 
-	protected function actionNewComment($post)
+	protected function actionComment($post)
 	{
 		$comment=new Comments();
 		if(isset($_POST['Comment']))

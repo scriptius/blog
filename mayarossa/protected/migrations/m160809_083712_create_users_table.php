@@ -7,7 +7,7 @@ class m160809_083712_create_users_table extends CDbMigration
 		$this->createTable('Users', [
 			'id' => 'pk',
 			'username' => 'string NOT NULL',
-			'passwordHash' => 'string NOT NULL',
+			'password' => 'string NOT NULL',
 			'email' => 'string NOT NULL',
 			'status' => 'boolean NOT NULL DEFAULT 1',
 			'updated_at' => 'int(11) NOT NULL',
@@ -18,7 +18,7 @@ class m160809_083712_create_users_table extends CDbMigration
 
 		$this->insert('Users', [
 			'username' => 'admin',
-			'passwordHash' => 'admin',
+			'password' => '$2y$13$fOmTvADrkqaxcWgT2eqMuev655Svax6AAJx4tTVFFi4Pj6EGQ8Yte',
 			'email' => 'admin@test.ru',
 			'status' => 1,
 			'updated_at' => time(),

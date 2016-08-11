@@ -55,6 +55,7 @@ class Comments extends CActiveRecord
 			'parentComment0' => array(self::BELONGS_TO, 'Comments', 'parentComment'),
 			'comments' => array(self::HAS_MANY, 'Comments', 'parentComment'),
 			'parentPost0' => array(self::BELONGS_TO, 'Posts', 'parentPost'),
+			'author' => array(self::BELONGS_TO, 'Users', 'userId')
 		);
 	}
 
@@ -65,7 +66,7 @@ class Comments extends CActiveRecord
 	{
 		return array(
 			'id' => 'ID',
-			'userId' => 'User',
+			'userId' => 'Id пользователя',
 			'content' => 'Введите текст комментария',
 			'raiting' => 'Raiting',
 			'parentPost' => 'Parent Post',

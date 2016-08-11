@@ -123,3 +123,4 @@ class Users extends CActiveRecord
 	}
 
 }
+//$2y$13$fOmTvADrkqaxcWgT2eqMuev655Svax6AAJx4tTVFFi4Pj6EGQ8Yte

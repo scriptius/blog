@@ -20,6 +20,7 @@ class m160809_120036_create_comments_table extends CDbMigration
 
 		$this->addForeignKey('parentPost_fk', 'Comments', 'parentPost', 'Posts', 'id', NULL , 'cascade');
 		$this->addForeignKey('parentComment_fk', 'Comments', 'parentComment', 'Comments', 'id', NULL , 'cascade');
+		$this->addForeignKey('userId_fk', 'Comments', 'userId', 'Users', 'id', NULL , 'cascade');
 	}
 
 	public function safeDown()

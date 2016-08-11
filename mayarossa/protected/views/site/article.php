@@ -3,7 +3,11 @@
 
 $this->pageTitle=Yii::app()->name;
 ?>
-
+<?php if(Yii::app()->user->hasFlash('addComment')): ?>
+    <div class="flash-success">
+        <?php echo Yii::app()->user->getFlash('addComment'); ?>
+    </div>
+<?php endif; ?>
 
 <h1> <?php echo $post->title; ?> </h1>
 
@@ -14,7 +18,7 @@ $this->pageTitle=Yii::app()->name;
 <div class="form">
 
     <?php $form=$this->beginWidget('CActiveForm', array(
-        'id'=>'allCommentss-allCommentss-form',
+        'id'=>'comments-comments-form',
         // Please note: When you enable ajax validation, make sure the corresponding 
         // controller action is handling ajax validation correctly. 
         // See class documentation of CActiveForm for details on this, 
@@ -22,47 +26,69 @@ $this->pageTitle=Yii::app()->name;
         'enableAjaxValidation'=>false,
     )); ?>
 
-    <?php echo $form->errorSummary($allComments); ?>
+    <?php echo $form->errorSummary($comment); ?>
 
     <div class="row">
-        <?php echo $form->hiddenField($allComments,'userId', ['value' => $userId]) ; ?>
+        <?php echo $form->hiddenField($comment,'userId', ['value' => $userId]) ; ?>
     </div>
 
     <div class="row">
-        <?php echo $form->labelEx($allComments,'content'); ?>
-        <?php echo $form->textArea($allComments,'content', ['cols' => 75, 'rows' => 5]); ?>
-        <?php echo $form->error($allComments,'content'); ?>
+        <?php echo $form->labelEx($comment,'content'); ?>
+        <?php echo $form->textArea($comment,'content', ['cols' => 75, 'rows' => 5]); ?>
+        <?php echo $form->error($comment,'content'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->hiddenField($allComments,'updated_at', ['value' => time()]); ?>
+        <?php echo $form->hiddenField($comment,'updated_at', ['value' => time()]); ?>
 
     </div>
 
     <div class="row">
-        <?php echo $form->hiddenField($allComments,'created_at', ['value' => time()]); ?>
+        <?php echo $form->hiddenField($comment,'created_at', ['value' => time()]); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->hiddenField($allComments,'raiting'); ?>
+        <?php echo $form->hiddenField($comment,'raiting'); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->hiddenField($allComments,'parentPost', ['value' => 1]); ?>
+        <?php echo $form->hiddenField($comment,'parentPost', ['value' => 1]); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->hiddenField($allComments,'parentallComments', ['value' => 1]); ?>
+        <?php echo $form->hiddenField($comment,'parentcomment', ['value' => 1]); ?>
     </div>
 
 
     <div class="row buttons">
-        <?php echo CHtml::submitButton('Отправить коммантарий'); ?>
+        <?php echo CHtml::submitButton('Отправить комментарий'); ?>
     </div>
 
     <?php $this->endWidget(); ?>
 
-
-
 </div><!-- form -->
+
+<?php
+//var_dump($allComments);
+//if (true == is_array($allComments) && !empty($allComments)){
+//    foreach ($allComments as $comment){
+//        var_dump($comment->content);
+//    }
+//}else {
+//    echo 'На текущий момент комментариев нет';
+//}
+//?>
+
+<?php if (true == is_array($allComments) && !empty($allComments)): ?>
+    <?php foreach ($allComments as $oneComment): ?>
+           <?php echo 'Комментарий от: '. $oneComment->author->username.' Отправлено'.date('d-m-o H:m:s',$oneComment->created_at);?>
+        <div class="portlet-content-comment">
+            <?php echo $oneComment->content;?>
+        </div>
+    <?php endforeach; ?>
+<?php else: ?>
+    <div class="flash-notice">
+        На текущий момент комментариев нет. Вы можете быть первым.
+    </div>
+<?php endif; ?>
 
