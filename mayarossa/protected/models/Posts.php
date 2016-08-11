@@ -31,6 +31,14 @@ class Posts extends CActiveRecord
 	/**
 	 * @return array validation rules for model attributes.
 	 */
+	public function getUrl()
+	{
+		return Yii::app()->createUrl('site/article', array(
+			'id' => $this->id,
+			'title' => $this->title,
+		));
+	}
+
 	public function rules()
 	{
 		// NOTE: you should only define rules for those attributes that

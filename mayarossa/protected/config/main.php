@@ -43,6 +43,7 @@ return array(
 
 		'urlManager'=>array(
 			'urlFormat'=>'path',
+			//'showScriptName' => ,
 			'rules'=>array(
 				'addPost' => 'site/addPost',
 				'<controller:\w+>/<id:\d+>'=>'<controller>/view',
