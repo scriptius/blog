@@ -36,7 +36,8 @@ class SiteController extends Controller
 	public function actionArticle(int $id)
 	{
 		$post = Posts::model()->findByPk($id);
-		$this->render('article', ['post' => $post]);
+		$comment = new Comments();
+		$this->render('article', ['post' => $post, 'comment' => $comment]);
 	}
 
 	public function actionAddPost()
@@ -71,6 +72,26 @@ class SiteController extends Controller
 		$this->render('addPost',array('model'=>$model));
 
 	}
+
+	protected function actionNewComment($post)
+	{
+		$comment=new Comments();
+		if(isset($_POST['Comment']))
+		{
+			$comment->attributes=$_POST['Comment'];
+			if($post->addComment($comment))
+			{
+				if($comment->status==Comment::STATUS_PENDING)
+					Yii::app()->user->setFlash('commentSubmitted','Thank you for your comment.
+                Your comment will be posted once it is approved.');
+				$this->refresh();
+			}
+		}
+		return $comment;
+	}
+
+
+
 
 	/**
 	 * This is the action to handle external exceptions.
