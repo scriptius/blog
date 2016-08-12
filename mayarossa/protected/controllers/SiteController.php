@@ -48,13 +48,13 @@ class SiteController extends Controller
 		}
 
 		$post = Posts::model()->findByPk($id);
-		$allComments = Comments::model()->findAll();
+		$allComments = Comments::model()->findAll('parentPost=:parentPost', [':parentPost'=> $post->id]);
 
-		$this->render('article', ['post' => $post, 'comment' => $comment, 'userId' => Yii::app()->user->id, 'allComments' => $allComments]);
-
-
-
-
+		$this->render('article', ['post' => $post,
+			 					  'comment' => $comment,
+								  'userId' => Yii::app()->user->id,
+								  'allComments' => $allComments,
+								   'parentPost' => $post->id]);
 	}
 
 	public function actionAddPost()

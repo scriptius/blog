@@ -23,7 +23,8 @@ $this->pageTitle=Yii::app()->name;
         // See class documentation of CActiveForm for details on this, 
         // you need to use the performAjaxValidation()-method described there. 
         'enableAjaxValidation'=>false,
-    )); ?>
+    ));
+    ?>
 
     <?php echo $form->errorSummary($comment); ?>
 
@@ -47,15 +48,15 @@ $this->pageTitle=Yii::app()->name;
     </div>
 
     <div class="row">
-        <?php echo $form->hiddenField($comment,'raiting'); ?>
+        <?php echo $form->hiddenField($comment,'raiting', ['value' => 0]); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->hiddenField($comment,'parentPost', ['value' => 1]); ?>
+        <?php echo $form->hiddenField($comment,'parentPost', ['value' => $parentPost]); ?>
     </div>
 
     <div class="row">
-        <?php echo $form->hiddenField($comment,'parentcomment', ['value' => 1]); ?>
+        <?php echo $form->hiddenField($comment,'parentComment'); ?>
     </div>
 
 
@@ -67,11 +68,12 @@ $this->pageTitle=Yii::app()->name;
 
 </div><!-- form -->
 
+
 <?php if (true == is_array($allComments) && !empty($allComments)): ?>
     <?php foreach ($allComments as $oneComment): ?>
            <?php echo $oneComment->author->username.' / '.date('d-m-o H:m:s',$oneComment->created_at);?>
         <div class="portlet-content-comment">
-            <?php echo $oneComment->content;?>
+            <?php echo $oneComment->content; ?>
         </div>
     <?php endforeach; ?>
 <?php else: ?>
