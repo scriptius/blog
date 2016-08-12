@@ -16,7 +16,6 @@ $this->pageTitle=Yii::app()->name;
 </div>
 
 <div class="form">
-
     <?php $form=$this->beginWidget('CActiveForm', array(
         'id'=>'comments-comments-form',
         // Please note: When you enable ajax validation, make sure the corresponding 
@@ -68,20 +67,9 @@ $this->pageTitle=Yii::app()->name;
 
 </div><!-- form -->
 
-<?php
-//var_dump($allComments);
-//if (true == is_array($allComments) && !empty($allComments)){
-//    foreach ($allComments as $comment){
-//        var_dump($comment->content);
-//    }
-//}else {
-//    echo 'На текущий момент комментариев нет';
-//}
-//?>
-
 <?php if (true == is_array($allComments) && !empty($allComments)): ?>
     <?php foreach ($allComments as $oneComment): ?>
-           <?php echo 'Комментарий от: '. $oneComment->author->username.' Отправлено'.date('d-m-o H:m:s',$oneComment->created_at);?>
+           <?php echo $oneComment->author->username.' / '.date('d-m-o H:m:s',$oneComment->created_at);?>
         <div class="portlet-content-comment">
             <?php echo $oneComment->content;?>
         </div>
