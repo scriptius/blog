@@ -11,9 +11,32 @@ $this->pageTitle=Yii::app()->name;
 
 <h1> <?php echo $post->title; ?> </h1>
 
+
+
 <div class="portlet-content">
     <?php echo $post->content; ?>
 </div>
+
+<p>
+Общий рейтинг поста: <?php echo $raitingPost; ?>
+</p>
+
+<p>
+<form action="index.php/site/addraiting" method="post">
+    <select size="1" name="raiting">
+        <option value="-3" >-3</option>
+        <option value="-2">-2</option>
+        <option value="-1">-1</option>
+        <option value="0" selected>0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+    </select>
+    <input type="submit" value="Оценить пост">
+</form>
+</p>
+
+<hr>
 
 <div class="form">
     <?php $form=$this->beginWidget('CActiveForm', array(

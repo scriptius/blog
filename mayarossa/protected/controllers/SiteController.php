@@ -33,6 +33,13 @@ class SiteController extends Controller
 		$this->render('index', ['posts' => $posts]);
 	}
 
+	public function actionAddRaiting()
+	{
+		if (isset($_POST['raiting'])){
+			var_dump($_POST);
+		}
+	}
+
 	public function actionArticle(int $id)
 	{
 		$comment = new Comments();
@@ -46,15 +53,22 @@ class SiteController extends Controller
 //				$this->render('article', ['post' => $post, 'comment' => $comment, 'userId' => Yii::app()->user->id]);
 			}
 		}
+//		else{
+//			Yii::app()->user->setFlash('needLogin','Для этой операции требуется регистрация в системе');
+//			$this->redirect('site/login');
+//		}
+//		&& !Yii::app()->user->isGuest
 
 		$post = Posts::model()->findByPk($id);
 		$allComments = Comments::model()->findAll('parentPost=:parentPost', [':parentPost'=> $post->id]);
+
 
 		$this->render('article', ['post' => $post,
 			 					  'comment' => $comment,
 								  'userId' => Yii::app()->user->id,
 								  'allComments' => $allComments,
-								   'parentPost' => $post->id]);
+								  'raitingPost' => (int)$post->raiting,
+								  'parentPost' => $post->id]);
 	}
 
 	public function actionAddPost()

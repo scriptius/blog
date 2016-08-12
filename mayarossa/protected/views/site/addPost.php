@@ -68,3 +68,7 @@
 
 </div>
 <!-- form -->
+
+<script>
+	$('div.rating').rating();
+</script>
