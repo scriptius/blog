@@ -37,6 +37,7 @@ class SiteController extends Controller
 	{
 		if (isset($_POST['raiting'])){
 			var_dump($_POST);
+			echo 1;
 		}
 	}
 
