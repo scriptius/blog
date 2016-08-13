@@ -36,8 +36,14 @@ class SiteController extends Controller
 	public function actionAddRaiting()
 	{
 		if (isset($_POST['raiting'])){
-			var_dump($_POST);
-			echo 1;
+			 Yii::app()->db->createCommand()
+				 		   ->update('Posts',
+							   	   ['raiting' => new CDbExpression('raiting + :raiting',
+											  					  [':raiting' => (int)$_POST['raiting']])],
+							        'id = :id',
+							       [':id' => (int) $_POST['postId']]);
+			Yii::app()->user->setFlash('addRaitingSuccess','Ваша оценка учтена');
+			$this->redirect('/site/article/'.(int) $_POST['postId']);
 		}
 	}
 

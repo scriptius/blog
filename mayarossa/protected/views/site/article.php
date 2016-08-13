@@ -3,9 +3,16 @@
 
 $this->pageTitle=Yii::app()->name;
 ?>
+
 <?php if(Yii::app()->user->hasFlash('addComment')): ?>
     <div class="flash-success">
         <?php echo Yii::app()->user->getFlash('addComment'); ?>
+    </div>
+<?php endif; ?>
+
+<?php if(Yii::app()->user->hasFlash('addRaitingSuccess')): ?>
+    <div class="flash-success">
+        <?php echo Yii::app()->user->getFlash('addRaitingSuccess'); ?>
     </div>
 <?php endif; ?>
 
@@ -22,7 +29,7 @@ $this->pageTitle=Yii::app()->name;
 </p>
 
 <p>
-<form action="index.php/site/addraiting" method="post">
+<form action="/site/addraiting" method="post">
     <select size="1" name="raiting">
         <option value="-3" >-3</option>
         <option value="-2">-2</option>
@@ -32,6 +39,7 @@ $this->pageTitle=Yii::app()->name;
         <option value="2">2</option>
         <option value="3">3</option>
     </select>
+    <input type="hidden" name="postId" value="<?php echo $post->id ?>">
     <input type="submit" value="Оценить пост">
 </form>
 </p>
