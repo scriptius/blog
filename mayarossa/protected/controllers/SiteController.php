@@ -38,6 +38,10 @@ class SiteController extends Controller
 		);
 	}
 
+	public function postFilter($filterChain)
+	{
+		echo  11;
+	}
 
 
 	/**
@@ -55,6 +59,8 @@ class SiteController extends Controller
 
 	public function actionAddRaiting()
 	{
+		var_dump($_POST['raiting']);
+		
 		if (isset($_POST['raiting'])){
 			 Yii::app()->db->createCommand()
 				 		   ->update('Posts',
@@ -64,8 +70,10 @@ class SiteController extends Controller
 							       [':id' => (int) $_POST['postId']]);
 			Yii::app()->user->setFlash('addRaitingSuccess','Ваша оценка учтена');
 			$this->redirect('/site/article/'.(int) $_POST['postId']);
+		}else{
+			$this->redirect('/site/index');
 		}
-		$this->redirect($_SERVER['HTTP_REFERER');
+
 	}
 
 	public function actionAddComment()

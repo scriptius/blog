@@ -15,7 +15,7 @@ class m160809_091559_create_posts_table extends CDbMigration
 			'updated_at' => 'int(11) NOT NULL',
 			'created_at' => 'int(11) NOT NULL',
 
-		]);
+		], 'DEFAULT CHARSET=utf8');
 
 		$this->createIndex('titlePosts_idx', 'Posts', 'title', TRUE);
 		$this->createIndex('posts_idx', 'Posts', ['raiting', 'userId', 'status']);
