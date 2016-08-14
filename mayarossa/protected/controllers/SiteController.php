@@ -65,7 +65,7 @@ class SiteController extends Controller
 			Yii::app()->user->setFlash('addRaitingSuccess','Ваша оценка учтена');
 			$this->redirect('/site/article/'.(int) $_POST['postId']);
 		}
-		$this->redirect('/site/index');
+		$this->redirect($_SERVER['HTTP_REFERER');
 	}
 
 	public function actionAddComment()
