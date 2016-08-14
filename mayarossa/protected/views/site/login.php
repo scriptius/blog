@@ -3,7 +3,7 @@
 /* @var $model LoginForm */
 /* @var $form CActiveForm  */
 
-$this->pageTitle=Yii::app()->name . ' - Login';
+$this->pageTitle=Yii::app()->name . ' - Авторизация';
 $this->breadcrumbs=array(
 	'Login',
 );
@@ -15,9 +15,9 @@ $this->breadcrumbs=array(
 	</div>
 <?php endif; ?>
 
-<h1>Login</h1>
+<h1>Страница авторизации</h1>
 
-<p>Please fill out the following form with your login credentials:</p>
+<p>Пожалуйста, заполните следующую форму с вашими учетными данными для входа:</p>
 
 <div class="form">
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -28,7 +28,7 @@ $this->breadcrumbs=array(
 	),
 )); ?>
 
-	<p class="note">Fields with <span class="required">*</span> are required.</p>
+	<p class="note">Поля отмеченные <span class="required">*</span> ОБЯЗАТЕЛЬНЫ.</p>
 
 	<div class="row">
 		<?php echo $form->labelEx($model,'username'); ?>
@@ -41,7 +41,7 @@ $this->breadcrumbs=array(
 		<?php echo $form->passwordField($model,'password'); ?>
 		<?php echo $form->error($model,'password'); ?>
 		<p class="hint">
-			Hint: You may login with <kbd>demo</kbd>/<kbd>demo</kbd> or <kbd>admin</kbd>/<kbd>admin</kbd>.
+			К сведению: вы можете авторизоваться, с помощью <kbd>admin</kbd>/<kbd>admin</kbd> или <kbd>test</kbd>/<kbd>test</kbd>.
 		</p>
 	</div>
 

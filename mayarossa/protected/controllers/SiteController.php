@@ -21,6 +21,25 @@ class SiteController extends Controller
 		);
 	}
 
+	public function filters()
+	{
+		return array(
+			'accessControl',
+		);
+	}
+
+	public function accessRules()
+	{
+		return array(
+			array('deny',
+				'actions'=>array('AddRaiting', 'AddComment'),
+				'users'=>array('?'),
+			),
+		);
+	}
+
+
+
 	/**
 	 * This is the default 'index' action that is invoked
 	 * when an action is not explicitly requested by users.
@@ -29,6 +48,7 @@ class SiteController extends Controller
 	{
 		// renders the view file 'protected/views/site/index.php'
 		// using the default layout 'protected/views/layouts/main.php'
+
 		$posts = Posts::model()->findAll();
 		$this->render('index', ['posts' => $posts]);
 	}
@@ -47,24 +67,22 @@ class SiteController extends Controller
 		}
 	}
 
+	public function actionAddComment()
+	{
+		$comment = new Comments();
+		if (isset($_POST['Comments'])){
+			$comment->attributes = $_POST['Comments'];
+			if($comment->validate()) {
+				$comment->save();
+				Yii::app()->user->setFlash('addComment', 'Ваш комментарий успешно добавлен');
+			}
+		}
+		Yii::app()->request->redirect($_SERVER['HTTP_REFERER']);
+	}
+
 	public function actionArticle(int $id)
 	{
 		$comment = new Comments();
-
-		if (isset($_POST['Comments'])){
-			$comment->attributes = $_POST['Comments'];
-			if($comment->validate()){
-				$comment->save();
-				Yii::app()->user->setFlash('addComment','Ваш комментарий успешно добавлен');
-//				$this->redirect(Yii::app()->user->returnUrl);
-//				$this->render('article', ['post' => $post, 'comment' => $comment, 'userId' => Yii::app()->user->id]);
-			}
-		}
-//		else{
-//			Yii::app()->user->setFlash('needLogin','Для этой операции требуется регистрация в системе');
-//			$this->redirect('site/login');
-//		}
-//		&& !Yii::app()->user->isGuest
 
 		$post = Posts::model()->findByPk($id);
 		$allComments = Comments::model()->findAll('parentPost=:parentPost', [':parentPost'=> $post->id]);
@@ -80,10 +98,10 @@ class SiteController extends Controller
 
 	public function actionAddPost()
 	{
-		if (Yii::app()->user->isGuest){
-			Yii::app()->user->setFlash('needLogin','Для этой операции требуется регистрация в системе');
-			$this->redirect('site/login');
-		}
+//		if (Yii::app()->user->isGuest){
+//			Yii::app()->user->setFlash('needLogin','Для этой операции требуется регистрация в системе');
+//			$this->redirect('site/login');
+//		}
 		
 		$model=new Posts;
 
@@ -96,17 +114,15 @@ class SiteController extends Controller
         }
         */
 
-		if(isset($_POST['Posts']))
-		{
+		if(isset($_POST['Posts'])){
 			$model->attributes = $_POST['Posts'];
-
-			if($model->validate())
-			{
+			if($model->validate()){
 				$model->save();
 				Yii::app()->user->setFlash('addPost','Ваш пост успешно добавлен');
 				$this->redirect('addPost');
 			}
 		}
+		
 		$this->render('addPost',array('model'=>$model));
 
 	}
