@@ -24,6 +24,15 @@ class m160809_083712_create_users_table extends CDbMigration
 			'updated_at' => time(),
 			'created_at' => time(),
 		]);
+		
+		$this->insert('Users', [
+			'username' => 'test',
+			'password' => '$2y$13$mkhR7MaTl.zTekPKsuMQKe.j38dAoBZD1yF9/hl4xGsK.upn.t4xu',
+			'email' => 'test@test.ru',
+			'status' => 1,
+			'updated_at' => time(),
+			'created_at' => time(),
+		]);
 	}
 
 	public function safeDown()

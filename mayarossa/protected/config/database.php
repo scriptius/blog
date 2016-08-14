@@ -2,7 +2,7 @@
 
 return [
 		'class'=>'CDbConnection',
-		'connectionString'=>'mysql:host=localhost;dbname=blogMayarossa',
+		'connectionString'=>'mysql:host=localhost;dbname=blog2',
 		'username'=>'root',
 		'password'=>'',
 		'charset' => 'utf8',

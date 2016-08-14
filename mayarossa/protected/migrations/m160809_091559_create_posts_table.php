@@ -27,8 +27,8 @@ class m160809_091559_create_posts_table extends CDbMigration
 			->queryRow();
 
 		$this->insert('Posts', [
-			'title' => 'Тестовый заголовок',
-			'content' => 'Давно выяснено, что при оценке дизайна и композиции читаемый текст мешает сосредоточиться. Lorem Ipsum используют потому, что тот обеспечивает более или менее стандартное заполнение шаблона, а также реальное распределение букв и пробелов в абзацах, которое не получается при простой дубликации "Здесь ваш текст.. Здесь ваш текст.. Здесь ваш текст.." Многие программы электронной вёрстки и редакторы HTML используют Lorem Ipsum в качестве текста по умолчанию, так что поиск по ключевым словам "lorem ipsum" сразу показывает, как много веб-страниц всё ещё дожидаются своего настоящего рождения. За прошедшие годы текст Lorem Ipsum получил много версий. Некоторые версии появились по ошибке, некоторые - намеренно (например, юмористические варианты).',
+			'title' => 'What is Lorem Ipsum?',
+			'content' => 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.',
 			'raiting' => '100',
 			'userId' => $adminId['id'],
 			'status' => 1,
@@ -41,6 +41,7 @@ class m160809_091559_create_posts_table extends CDbMigration
 
 	public function safeDown()
 	{
+		$this->dropForeignKey('userId_fk', 'Posts');
 		$this->dropTable('Posts');
 	}
 }
