@@ -1,9 +1,18 @@
 <?php
 
+/**
+ * Class SiteController
+ * This is the main and currently the only class controller
+ *
+ * @author Mamonov Viktor
+ */
+
 class SiteController extends Controller
 {
 	/**
 	 * Declares class-based actions.
+	 * @return array Set actions
+	 * @todo Required to create the registration page, which is still in the process of creating
 	 */
 	public function actions()
 	{
@@ -21,6 +30,11 @@ class SiteController extends Controller
 		);
 	}
 
+	/**
+	 * Declares filters.
+	 * @return array List filters for access control in addComments and addRaiting
+	 * @see http://www.yiiframework.com/doc/guide/1.1/ru/basics.controller#sec-5  more about filters
+	 */
 	public function filters()
 	{
 		return array(
@@ -28,6 +42,11 @@ class SiteController extends Controller
 		);
 	}
 
+	/**
+	 * Declares list rules.
+	 * @return array List rules for access control in addComments and addRaiting
+	 * * @see http://www.yiiframework.com/doc/guide/1.1/ru/basics.controller#sec-5  more about filters
+	 */
 	public function accessRules()
 	{
 		return array(
@@ -36,11 +55,6 @@ class SiteController extends Controller
 				'users'=>array('?'),
 			),
 		);
-	}
-
-	public function postFilter($filterChain)
-	{
-		echo  11;
 	}
 
 
@@ -57,10 +71,11 @@ class SiteController extends Controller
 		$this->render('index', ['posts' => $posts]);
 	}
 
+	/**
+	 * This is a method for inclusion in the database of user ratings for posts or comments for future
+	 */
 	public function actionAddRaiting()
 	{
-		var_dump($_POST['raiting']);
-		
 		if (isset($_POST['raiting'])){
 			 Yii::app()->db->createCommand()
 				 		   ->update('Posts',
@@ -69,13 +84,16 @@ class SiteController extends Controller
 							        'id = :id',
 							       [':id' => (int) $_POST['postId']]);
 			Yii::app()->user->setFlash('addRaitingSuccess','Ваша оценка учтена');
-			$this->redirect('/site/article/'.(int) $_POST['postId']);
+			$this->redirect('/site/article/'.(int) $_POST['postId']); //Redirect to the original page, if the data came from the user
 		}else{
-			$this->redirect('/site/index');
+			$this->redirect('/site/index');  //Redirect to the home page, if there is no data from the user
 		}
 
 	}
 
+	/**
+	 * This is a method for inclusion in the database of user comments for posts
+	 */
 	public function actionAddComment()
 	{
 		$comment = new Comments();
@@ -89,11 +107,15 @@ class SiteController extends Controller
 		Yii::app()->request->redirect($_SERVER['HTTP_REFERER']);
 	}
 
+	/**
+	 * This method generates a page with article
+	 * @param integer Post ID in the database
+	 */
 	public function actionArticle(int $id)
 	{
-		$comment = new Comments();
+		$comment = new Comments(); //to form a data entry form
 
-		$post = Posts::model()->findByPk($id);
+		$post = Posts::model()->findByPk($id); //find post by ID
 		$allComments = Comments::model()->findAll('parentPost=:parentPost', [':parentPost'=> $post->id]);
 
 
@@ -105,23 +127,12 @@ class SiteController extends Controller
 								  'parentPost' => $post->id]);
 	}
 
+	/**
+	 * This is a method for add Post
+	 */
 	public function actionAddPost()
 	{
-//		if (Yii::app()->user->isGuest){
-//			Yii::app()->user->setFlash('needLogin','Для этой операции требуется регистрация в системе');
-//			$this->redirect('site/login');
-//		}
-		
 		$model=new Posts;
-
-		// uncomment the following code to enable ajax-based validation
-		/*
-        if(isset($_POST['ajax']) && $_POST['ajax']==='posts-index-form')
-        {
-            echo CActiveForm::validate($model);
-            Yii::app()->end();
-        }
-        */
 
 		if(isset($_POST['Posts'])){
 			$model->attributes = $_POST['Posts'];
@@ -131,30 +142,10 @@ class SiteController extends Controller
 				$this->redirect('addPost');
 			}
 		}
-		
+
 		$this->render('addPost',array('model'=>$model));
 
 	}
-
-	protected function actionComment($post)
-	{
-		$comment=new Comments();
-		if(isset($_POST['Comment']))
-		{
-			$comment->attributes=$_POST['Comment'];
-			if($post->addComment($comment))
-			{
-				if($comment->status==Comment::STATUS_PENDING)
-					Yii::app()->user->setFlash('commentSubmitted','Thank you for your comment.
-                Your comment will be posted once it is approved.');
-				$this->refresh();
-			}
-		}
-		return $comment;
-	}
-
-
-
 
 	/**
 	 * This is the action to handle external exceptions.
@@ -172,6 +163,7 @@ class SiteController extends Controller
 
 	/**
 	 * Displays the contact page
+	 * @todo not yet ready
 	 */
 	public function actionContact()
 	{

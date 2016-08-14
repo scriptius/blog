@@ -8,6 +8,7 @@ $this->breadcrumbs=array(
 	'Login',
 );
 ?>
+// This part of the message output for flash
 
 <?php if(Yii::app()->user->hasFlash('needLogin')): ?>
 	<div class="flash-error">

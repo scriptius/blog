@@ -3,8 +3,7 @@
 
 $this->pageTitle=Yii::app()->name;
 ?>
-
-
+// This part of the message output for flash
 
 <?php if(Yii::app()->user->hasFlash('addComment')): ?>
     <div class="flash-success">
@@ -21,7 +20,6 @@ $this->pageTitle=Yii::app()->name;
 <h1> <?php echo $post->title; ?> </h1>
 
 
-
 <div class="portlet-content">
     <?php echo $post->content; ?>
 </div>
@@ -31,19 +29,19 @@ $this->pageTitle=Yii::app()->name;
 </p>
 
 <p>
-<form action="/site/addraiting" method="post">
-    <select size="1" name="raiting">
-        <option value="-3" >-3</option>
-        <option value="-2">-2</option>
-        <option value="-1">-1</option>
-        <option value="0" selected>0</option>
-        <option value="1">1</option>
-        <option value="2">2</option>
-        <option value="3">3</option>
-    </select>
-    <input type="hidden" name="postId" value="<?php echo $post->id ?>">
-    <input type="submit" value="Оценить пост">
-</form>
+    <form action="/site/addraiting" method="post">
+        <select size="1" name="raiting">
+            <option value="-3" >-3</option>
+            <option value="-2">-2</option>
+            <option value="-1">-1</option>
+            <option value="0" selected>0</option>
+            <option value="1">1</option>
+            <option value="2">2</option>
+            <option value="3">3</option>
+        </select>
+        <input type="hidden" name="postId" value="<?php echo $post->id ?>">
+        <input type="submit" value="Оценить пост">
+    </form>
 </p>
 
 <hr>
@@ -102,6 +100,7 @@ $this->pageTitle=Yii::app()->name;
 
 </div><!-- form -->
 
+// This part for comments
 
 <?php if (true == is_array($allComments) && !empty($allComments)): ?>
     <?php foreach ($allComments as $oneComment): ?>

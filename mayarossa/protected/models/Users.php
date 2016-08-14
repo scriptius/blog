@@ -112,15 +112,23 @@ class Users extends CActiveRecord
 		return parent::model($className);
 	}
 
+	/**
+	 * @param $password string
+	 * @return bool Vailidate or not validate
+	 */
 	public function validatePassword($password)
 	{
 		return CPasswordHelper::verifyPassword($password,$this->password);
 	}
 
+	/**
+	 * @param $password string
+	 * @return string
+	 * @throws CException 
+	 */
 	public function hashPassword($password)
 	{
 		return  CPasswordHelper::hashPassword($password);
 	}
 
 }
-//$2y$13$fOmTvADrkqaxcWgT2eqMuev655Svax6AAJx4tTVFFi4Pj6EGQ8Yte

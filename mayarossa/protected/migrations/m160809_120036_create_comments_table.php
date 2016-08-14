@@ -13,8 +13,7 @@ class m160809_120036_create_comments_table extends CDbMigration
 			'parentComment' => 'int(11) DEFAULT NULL',
 			'updated_at' => 'int(11) NOT NULL',
 			'created_at' => 'int(11) NOT NULL',
-
-		]);
+		], 'DEFAULT CHARSET=utf8');
 
 		$adminId = Yii::app()->db->createCommand()
 			->select ('id')
@@ -30,7 +29,7 @@ class m160809_120036_create_comments_table extends CDbMigration
 			'parentComment' => 'int(11) DEFAULT NULL',
 			'updated_at' => 'int(11) NOT NULL',
 			'created_at' => 'int(11) NOT NULL',
-		],'DEFAULT CHARSET=utf8');
+		]);
 		
 		
 		$this->createIndex('comments_idx', 'Comments', ['raiting', 'userId']);

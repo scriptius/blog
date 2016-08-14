@@ -3,12 +3,14 @@
 /* @var $model Posts */
 /* @var $form CActiveForm */
 ?>
+// This part of the message output for flash
 	<?php if(Yii::app()->user->hasFlash('addPost')): ?>
 		<div class="flash-success">
 	<?php echo Yii::app()->user->getFlash('addPost'); ?>
 		</div>
 	<?php endif; ?>
 
+// Start form with widget
 <div class="form">
 
 <?php $form=$this->beginWidget('CActiveForm', array(
@@ -68,7 +70,3 @@
 
 </div>
 <!-- form -->
-
-<script>
-	$('div.rating').rating();
-</script>

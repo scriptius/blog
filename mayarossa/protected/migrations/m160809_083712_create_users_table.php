@@ -12,7 +12,6 @@ class m160809_083712_create_users_table extends CDbMigration
 			'status' => 'boolean NOT NULL DEFAULT 1',
 			'updated_at' => 'int(11) NOT NULL',
 			'created_at' => 'int(11) NOT NULL',
-
 		],'DEFAULT CHARSET=utf8');
 		$this->createIndex('username_idx', 'Users', ['username', 'email'], TRUE);
 
